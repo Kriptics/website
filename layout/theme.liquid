@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }} | {{ shop.name }}</title>
+    <meta name="description" content="Zenel Health, Wellness & Personal Care">
+    {{ 'theme.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body class="zenel-body">
+    <header class="site-header">
+      <div class="container flex-between">
+        <a class="logo" href="/">{{ shop.name }}</a>
+        <nav class="primary-nav">
+          <ul>
+            <li><a href="/collections/skincare">Skincare</a></li>
+            <li><a href="/collections/wellness">Wellness</a></li>
+            <li><a href="/collections/fitness">Fitness</a></li>
+            <li><a href="/collections/grooming">Grooming</a></li>
+            <li><a href="/collections/bundles-and-sets">Bundles &amp; Sets</a></li>
+            <li><a href="/collections/new-arrivals">New Arrivals</a></li>
+            <li><a href="/collections/sale">Sale</a></li>
+            <li><a href="/pages/health">Health Hub</a></li>
+          </ul>
+        </nav>
+        <div class="header-actions">
+          <a class="header-link" href="/search">Search</a>
+          <a class="header-link" href="/account">Account</a>
+          <a class="header-link" href="/cart">Cart ({{ cart.item_count }})</a>
+        </div>
+      </div>
+    </header>
+
+    <main role="main" id="MainContent">
+      {{ content_for_layout }}
+    </main>
+
+    <footer class="site-footer">
+      <div class="container grid grid-4">
+        <div>
+          <h4>About Zenel</h4>
+          <p>Zenel blends the indulgent feel of a spa boutique with the science-backed essentials of a wellness clinic. Discover comprehensive care for skin, body, and mind.</p>
+        </div>
+        <div>
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="/collections/skincare">Skincare</a></li>
+            <li><a href="/collections/wellness">Wellness</a></li>
+            <li><a href="/collections/fitness">Fitness</a></li>
+            <li><a href="/collections/grooming">Grooming</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Wellness Programs</h4>
+          <ul>
+            <li><a href="/pages/health">Holistic Health Hub</a></li>
+            <li><a href="/collections/bundles-and-sets">Curated Bundles</a></li>
+            <li><a href="/collections/sale">Member Exclusives</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Stay Connected</h4>
+          <p>Join the Zenel Insider circle for weekly rituals, new arrivals, and expert wellness guidance.</p>
+          <form method="post" action="/contact#contact_form" class="newsletter-form">
+            <input type="email" name="contact[email]" placeholder="Email address" required>
+            <button type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+      </div>
+    </footer>
+
+    {{ content_for_footer }}
+  </body>
+</html>

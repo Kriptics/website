@@ -1,0 +1,72 @@
+{% layout 'theme' %}
+<section class="container" style="margin-top:3rem;">
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem;">
+    <div>
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | img_url: '1024x1024' }}" alt="{{ product.title }}" style="width:100%; border-radius:24px; box-shadow:0 18px 40px rgba(20,16,55,0.12);">
+      {% endif %}
+      {% if product.images.size > 1 %}
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(100px,1fr)); gap:0.75rem; margin-top:1rem;">
+          {% for image in product.images %}
+            <img src="{{ image | img_url: '400x' }}" alt="{{ product.title }} image {{ forloop.index }}" style="width:100%; border-radius:14px;">
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+    <div>
+      <h1 style="font-family:var(--font-heading); font-size:2.2rem; margin-top:0;">{{ product.title }}</h1>
+      <div style="font-size:1.4rem; font-weight:600; color:var(--color-primary);">{{ product.price | money }}</div>
+      <div style="margin:1.5rem 0; line-height:1.7; color:#4d4d62;">
+        {{ product.description | default: 'Designed by Zenel to align beauty, strength, and serenity. Crafted with clean, high-performance ingredients and smart functionality for daily rituals.' }}
+      </div>
+      {% form 'product', product %}
+        <div style="margin-bottom:1rem;">
+          {% if product.variants.size > 1 %}
+            <label for="ProductSelect" style="display:block; font-weight:600; margin-bottom:0.5rem;">Select an option</label>
+            <select id="ProductSelect" name="id" style="padding:0.75rem 1rem; border-radius:999px; width:100%;">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>
+                  {{ variant.title }} - {{ variant.price | money }}
+                </option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          {% endif %}
+        </div>
+        <button type="submit" class="button-primary" style="width:100%; text-align:center;">Add to Ritual</button>
+      {% endform %}
+      <div class="zenel-badges" style="margin-top:2rem;">
+        <span class="badge">Clean Ingredients</span>
+        <span class="badge">Wellness-Backed</span>
+        <span class="badge">Satisfaction Guarantee</span>
+      </div>
+      <div style="margin-top:2.5rem;">
+        <h3 style="font-family:var(--font-heading);">Why You’ll Love It</h3>
+        <ul style="color:#4d4d62; line-height:1.8; padding-left:1.2rem;">
+          <li>Targets {{ product.type | default: 'core wellness goals' | downcase }} with focused actives.</li>
+          <li>Pairs seamlessly with our {{ product.collections.first.title | default: 'Zenel collections' }} ritual roadmap.</li>
+          <li>Designed for holistic results—mind, body, and skin in sync.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top:4rem; background:white; padding:2.5rem; border-radius:24px; box-shadow:0 20px 50px rgba(20,16,55,0.08);">
+    <h2 class="section-heading" style="margin-top:0;">Ritual Pairings</h2>
+    <p style="color:#4d4d62; text-align:center; max-width:720px; margin:0 auto 2rem;">Enhance your results by combining this product with complementary Zenel categories.</p>
+    <div class="category-grid">
+      <div class="category-card">
+        <h3>Prep</h3>
+        <p>Cleanse, exfoliate, and balance your complexion or body before you treat.</p>
+      </div>
+      <div class="category-card">
+        <h3>Treat</h3>
+        <p>Layer targeted serums, tools, or performance gear to address specific goals.</p>
+      </div>
+      <div class="category-card">
+        <h3>Restore</h3>
+        <p>Cool down with restorative recovery aids, sleep rituals, and hydration support.</p>
+      </div>
+    </div>
+  </div>
+</section>
